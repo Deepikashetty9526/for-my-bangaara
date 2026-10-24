@@ -3,18 +3,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Bangaara ♡</title>
-
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For My Bangaara 💗</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap');
+
 :root {
-  --pink: #e9a4b7;
-  --rose: #a84965;
-  --cream: #fff9f5;
-  --text: #604752;
-  --muted: #987d87;
+  --pink: #fff0f3;
+  --pink2: #ffe0e8;
+  --rose: #df4e78;
+  --darkrose: #a72d53;
+  --ink: #683d4c;
+  --cream: #fffaf7;
+  --glass: rgba(255,255,255,.79);
 }
 
 * { box-sizing: border-box; }
@@ -23,286 +25,500 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--cream);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  font-family: 'Nunito', sans-serif;
+  background: var(--pink);
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
 button { font: inherit; cursor: pointer; }
 
-.hero {
+button:focus-visible, .falling-heart:focus-visible {
+  outline: 3px solid var(--darkrose);
+  outline-offset: 4px;
+}
+
+.page {
+  display: none;
   min-height: 100vh;
   min-height: 100svh;
-  padding: 65px 22px;
+  padding: 78px 20px 36px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 8% 10%, #ffdce7 0, transparent 32%),
+    radial-gradient(ellipse at 95% 85%, #ffe4d8 0, transparent 35%),
+    linear-gradient(140deg, #fff5f6, #ffe8ee 52%, #fff4ed);
+}
+
+.page.active {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  background:
-    radial-gradient(ellipse at 12% 18%, #f9dfe8, transparent 38%),
-    radial-gradient(ellipse at 90% 80%, #f8ead9, transparent 36%),
-    var(--cream);
+  animation: pageIn .55s ease both;
 }
 
-.eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--rose);
+.page::before,
+.page::after {
+  content: '🌸  ✿  🌷';
+  position: absolute;
+  color: #d98ba1;
+  opacity: .48;
+  font-size: 24px;
+  letter-spacing: 8px;
+  pointer-events: none;
 }
 
-.big-heart {
-  font-size: 60px;
-  margin: 24px 0;
-  animation: heartbeat 2s infinite;
-}
+.page::before { top: 15px; left: 10px; }
+.page::after { bottom: 10px; right: 8px; }
 
-h1, h2 {
+h1, h2, h3 {
   font-family: 'Playfair Display', Georgia, serif;
   font-weight: 500;
 }
 
 h1 {
-  font-size: clamp(44px, 9vw, 76px);
-  line-height: 1.12;
-  margin: 0;
+  font-size: clamp(42px, 8vw, 72px);
+  line-height: 1.14;
+  margin: 15px 0;
 }
 
-h1 em, h2 em { color: var(--rose); }
+h2 {
+  font-size: clamp(34px, 6vw, 51px);
+  line-height: 1.2;
+  margin: 12px 0 18px;
+}
 
-.intro {
-  max-width: 440px;
-  margin: 24px auto 30px;
-  font-size: 15px;
+h1 em, h2 em { color: var(--darkrose); }
+
+.subtitle {
+  max-width: 480px;
+  font-size: 16px;
   line-height: 1.9;
-  color: var(--muted);
+  color: #896471;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--darkrose);
+  text-align: center;
+}
+
+.topbar {
+  position: absolute;
+  z-index: 4;
+  top: 15px;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.home-btn {
+  border: 1px solid #f0c1cf;
+  background: #ffffffc9;
+  color: var(--darkrose);
+  border-radius: 30px;
+  padding: 9px 13px;
+  font-weight: 800;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.progress span {
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  background: #e8bdc9;
+  transition: .3s;
+}
+
+.progress span.done {
+  background: var(--rose);
+  transform: scale(1.3);
+}
+
+.primary, .secondary {
+  border-radius: 50px;
+  padding: 14px 23px;
+  font-weight: 800;
+  border: 0;
+  transition: transform .2s, box-shadow .2s;
 }
 
 .primary {
-  border: none;
-  border-radius: 50px;
-  padding: 15px 25px;
-  background: var(--rose);
+  background: linear-gradient(135deg, #ef6b91, #d83f6b);
   color: white;
-  box-shadow: 0 8px 25px #a8496526;
-  transition: transform .2s;
+  box-shadow: 0 9px 22px #c84e702e;
+}
+
+.secondary {
+  background: #fff;
+  color: var(--darkrose);
+  border: 1px solid #f0c4d1;
 }
 
 .primary:hover, .secondary:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px #c84e7030;
 }
 
-.small-note {
-  margin-top: 16px;
-  color: #a58d95;
-  font-size: 12px;
-}
-
-.letter-section {
-  padding: 80px 18px;
+.btn-row {
   display: flex;
   justify-content: center;
-  background: #fffaf7;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
 }
 
-.letter {
-  max-width: 700px;
-  width: 100%;
-  padding: clamp(24px, 6vw, 58px);
-  background: white;
-  border: 1px solid #f0dce1;
-  border-radius: 25px;
-  box-shadow: 0 18px 55px #8f52600c;
+.big-heart {
+  font-size: 66px;
+  line-height: 1.3;
+  animation: pulse 1.8s infinite;
 }
 
-.letter-label {
-  text-align: center;
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--rose);
-  margin-bottom: 22px;
+.card {
+  width: min(100%, 720px);
+  border: 1px solid #f5d1dc;
+  border-radius: 26px;
+  padding: clamp(23px, 5vw, 48px);
+  background: var(--glass);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 15px 45px #9b456d10;
 }
 
-.envelope {
-  display: block;
-  margin: 0 auto 22px;
-  border: none;
-  background: transparent;
-  font-size: 65px;
+.center { text-align: center; }
+
+.hero-characters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 12px 0;
+  position: relative;
+  height: 155px;
+}
+
+.character {
+  font-size: clamp(74px, 15vw, 112px);
+  filter: drop-shadow(0 8px 8px #bd62721c);
+}
+
+.character + .character {
+  margin-left: -22px;
+}
+
+.love-balloon {
+  position: absolute;
+  font-size: 49px;
+  left: 50%;
+  top: 52px;
+  transform: translateX(-50%);
   animation: float 2.5s ease-in-out infinite;
 }
 
-.letter h2 {
-  font-size: clamp(36px, 7vw, 49px);
-  text-align: center;
-  margin: 0 0 32px;
+.letter-card {
+  width: min(100%, 730px);
+  max-height: calc(100vh - 170px);
+  max-height: calc(100svh - 170px);
+  overflow-y: auto;
+  scrollbar-color: #edb5c6 transparent;
 }
 
-.letter p {
+.letter-card p {
+  line-height: 1.95;
   font-size: 15px;
-  line-height: 2;
-  color: #705b63;
-  margin: 0 0 23px;
+  margin: 0 0 19px;
+  color: #72505c;
 }
 
-.letter .closing-quote {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 23px;
-  line-height: 1.6;
+.letter-card .letter-quote {
+  font-family: 'Playfair Display', serif;
   font-style: italic;
+  font-size: 21px;
   text-align: center;
-  color: var(--rose);
-  margin: 34px 0;
+  color: var(--darkrose);
+  padding: 12px 0;
 }
 
 .signature {
-  font-family: 'Playfair Display', Georgia, serif;
-  color: var(--rose);
-  font-size: 26px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 25px;
+  color: var(--darkrose);
   margin-top: 10px;
 }
 
-.promises-section {
-  padding: 80px 20px;
-  text-align: center;
-  background: #f9e9ed;
-}
-
-.promises-section h2 {
-  font-size: clamp(34px, 6vw, 46px);
-  margin: 18px 0;
-}
-
-.description {
-  max-width: 490px;
-  margin: 0 auto 32px;
-  color: #806570;
-  font-size: 15px;
-  line-height: 1.9;
-}
-
-.promise-list {
-  max-width: 520px;
-  margin: auto;
+/* Apology reasons */
+.reasons {
+  width: min(100%, 540px);
   display: grid;
-  gap: 13px;
-  text-align: left;
+  gap: 10px;
+  margin: 12px 0 4px;
 }
 
-.promise {
+.reason {
   display: flex;
+  align-items: center;
   gap: 13px;
-  align-items: flex-start;
-  padding: 19px;
-  background: #fffaf8;
-  border-radius: 16px;
+  width: 100%;
+  padding: 14px 16px;
+  text-align: left;
+  color: var(--ink);
+  background: #ffffffd9;
+  border: 1px solid #f4d5de;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px #b44e6b09;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: reasonIn .45s ease forwards;
   font-size: 14px;
+}
+
+.reason .emoji {
+  font-size: 23px;
+  min-width: 31px;
+  text-align: center;
+}
+
+.reason .reason-text { flex: 1; }
+
+.reason .tiny-heart {
+  color: var(--rose);
+  opacity: .65;
+}
+
+.reason:nth-child(1) { animation-delay: .15s; }
+.reason:nth-child(2) { animation-delay: .45s; }
+.reason:nth-child(3) { animation-delay: .75s; }
+.reason:nth-child(4) { animation-delay: 1.05s; }
+.reason:nth-child(5) { animation-delay: 1.35s; }
+.reason:nth-child(6) { animation-delay: 1.65s; }
+.reason:nth-child(7) { animation-delay: 1.95s; }
+
+.reason:focus-visible {
+  outline: 3px solid var(--rose);
+  outline-offset: 2px;
+}
+
+/* Heart-catching game */
+.game-shell {
+  width: min(100%, 640px);
+  text-align: center;
+}
+
+.game-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 22px 0 14px;
+}
+
+.stat {
+  background: #ffffffdc;
+  border: 1px solid #f2c7d4;
+  border-radius: 18px;
+  padding: 11px 16px;
+  min-width: 130px;
+  box-shadow: 0 6px 18px #a94b6410;
+}
+
+.stat small {
+  display: block;
+  font-size: 11px;
+  color: #936b79;
+  font-weight: 800;
+}
+
+.stat strong {
+  font-size: 27px;
+  color: var(--darkrose);
+}
+
+.game-area {
+  position: relative;
+  width: 100%;
+  height: min(47vh, 380px);
+  min-height: 265px;
+  overflow: hidden;
+  border: 1px solid #f4c6d4;
+  border-radius: 25px;
+  background:
+    radial-gradient(circle at 20% 20%, #fff 0, transparent 20%),
+    linear-gradient(160deg, #fff7f8, #ffdee9);
+  box-shadow: inset 0 0 35px #e8a0b41a;
+  touch-action: manipulation;
+}
+
+.game-area::before {
+  content: '🌷  🌼  🌸  🌷';
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  width: 100%;
+  font-size: 21px;
+  letter-spacing: 12px;
+  opacity: .75;
+  pointer-events: none;
+}
+
+.game-hint {
+  color: #8d6472;
+  font-size: 13px;
   line-height: 1.8;
 }
 
-.promise-icon { font-size: 23px; }
+.falling-heart {
+  position: absolute;
+  top: -55px;
+  border: 0;
+  background: transparent;
+  padding: 5px;
+  font-size: 32px;
+  filter: drop-shadow(0 3px 4px #b14d6720);
+  animation: fall var(--fall-time, 3s) linear forwards;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
 
-.question-section {
-  min-height: 85vh;
-  padding: 80px 20px;
+.falling-heart.caught {
+  pointer-events: none;
+  animation: pop .25s ease forwards;
+}
+
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  background:
-    radial-gradient(ellipse at 85% 15%, #f8e0e7, transparent 38%),
-    var(--cream);
+  padding: 20px;
+  background: #fff3f5d9;
+  backdrop-filter: blur(4px);
 }
 
-.question-section h2 {
-  font-size: clamp(40px, 8vw, 61px);
-  margin: 20px 0;
+.game-overlay h3 {
+  font-size: 29px;
+  margin: 10px 0;
 }
 
-.question-section .description { max-width: 460px; }
-
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-}
-
-.secondary {
-  border: 1px solid #e7bdc9;
-  border-radius: 50px;
-  padding: 14px 22px;
-  background: white;
-  color: var(--rose);
-  transition: transform .2s;
-}
-
-.response {
-  display: none;
-  max-width: 460px;
-  margin-top: 28px;
-  padding: 25px;
-  border: 1px solid #f0dce1;
-  border-radius: 20px;
-  background: white;
+.game-overlay p {
+  max-width: 340px;
+  line-height: 1.8;
   font-size: 14px;
-  line-height: 1.9;
-  animation: appear .5s ease;
 }
 
-footer {
-  padding: 30px 20px 40px;
+.game-overlay[hidden] { display: none; }
+
+.result-bunny {
+  font-size: 105px;
+  animation: float 2.3s ease-in-out infinite;
+}
+
+.result-number {
+  font-family: 'Playfair Display', serif;
+  color: var(--darkrose);
+  font-size: 32px;
+}
+
+.result-note {
+  border: 1px solid #f4c6d4;
+  background: #ffffffd9;
+  padding: 17px 20px;
+  border-radius: 20px;
+  line-height: 1.8;
+  margin: 12px 0;
+}
+
+.final-card {
+  width: min(100%, 610px);
   text-align: center;
-  color: #a58d95;
-  font-size: 12px;
+}
+
+.final-card .promise {
+  background: #ffffffc9;
+  border: 1px solid #f1c8d5;
+  border-radius: 27px;
+  padding: clamp(23px, 5vw, 38px);
+  font-size: 16px;
   line-height: 2;
+  box-shadow: 0 12px 36px #a64e6b10;
 }
 
-.floating-heart {
-  position: fixed;
-  bottom: -40px;
+.penguin {
+  font-size: 116px;
+  margin-top: 12px;
+  animation: float 2.7s ease-in-out infinite;
+  filter: drop-shadow(0 8px 8px #9f65701c);
+}
+
+.flowers {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  letter-spacing: 5px;
+  font-size: clamp(20px, 5vw, 34px);
+  opacity: .78;
   pointer-events: none;
-  z-index: 10;
-  animation: rise 5s linear forwards;
 }
 
-@keyframes heartbeat {
+.love-sparkle {
+  color: var(--rose);
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
   0%, 100% { transform: scale(1); }
-  15% { transform: scale(1.12); }
-  30% { transform: scale(1); }
-  45% { transform: scale(1.08); }
+  50% { transform: scale(1.1); }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-7px); }
+  50% { transform: translateY(-9px); }
 }
 
-@keyframes rise {
-  to {
-    transform: translateY(-110vh) rotate(25deg);
-    opacity: 0;
-  }
-}
-
-@keyframes appear {
-  from { opacity: 0; transform: translateY(10px); }
+@keyframes reasonIn {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 480px) {
-  .letter { padding: 26px 21px; }
-  .letter p { font-size: 14px; }
-  .button-row {
-    flex-direction: column;
-    width: 100%;
-    max-width: 300px;
-  }
-  .button-row button { width: 100%; }
+@keyframes fall {
+  from { top: -55px; }
+  to { top: calc(100% + 45px); }
+}
+
+@keyframes pop {
+  to { transform: scale(1.8); opacity: 0; }
+}
+
+@media (max-width: 430px) {
+  .page { padding: 72px 15px 32px; }
+  .letter-card { max-height: calc(100svh - 150px); }
+  .letter-card p { font-size: 14px; line-height: 1.85; }
+  .game-stats { gap: 8px; }
+  .stat { min-width: 0; flex: 1; padding: 10px; }
+  .reason { padding: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -317,328 +533,377 @@ footer {
 
 <body>
 
-<!-- OPENING SCREEN -->
-<section class="hero">
-  <div class="eyebrow">A little something from my heart</div>
+<!-- PAGE 1: THE OPENING -->
+<section class="page active" id="page1" aria-label="Opening apology">
+  <div class="topbar">
+    <span class="eyebrow">A little place for us ♡</span>
+    <div class="progress" aria-label="Page 1 of 5">
+      <span class="done"></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
 
   <div class="big-heart">♡</div>
+  <div class="eyebrow">To my favourite person</div>
 
-  <h1>Hey, babe.<br><em>My favourite person.</em></h1>
+  <h1 class="center">Hey <em>Bangaara,</em><br>I am really sorry.</h1>
 
-  <p class="intro">
-    I made a little something for you.
-    There are things I want to tell you,
-    and I wanted to put them somewhere
-    that belongs just to us. ♡
+  <p class="subtitle">
+    Please forgive me and accept my apology. ❤️
+    <br>
+    I made this little world just for you,
+    with all the love in my heart.
   </p>
 
-  <button class="primary" onclick="goToLetter()">
-    Open your little letter 💌
+  <div class="hero-characters" aria-label="A bunny and a teddy holding a heart">
+    <span class="character">🐰</span>
+    <span class="character">🧸</span>
+    <span class="love-balloon">💗</span>
+  </div>
+
+  <button class="primary" onclick="goTo(2)">
+    Can we talk for a minute? 💌 &nbsp; →
   </button>
 
-  <div class="small-note">Made with love, just for you.</div>
+  <p class="game-hint">Just you, me, and a little hope. 🌷</p>
+  <div class="flowers">🌸 🌷 🌼 🌸 🌷</div>
 </section>
 
 
-<!-- YOUR PERSONAL APOLOGY LETTER -->
-<section class="letter-section" id="letter">
-  <article class="letter">
-
-    <div class="letter-label">
-      ♡ &nbsp; FROM MY HEART, TO YOURS &nbsp; ♡
+<!-- PAGE 2: YOUR COMPLETE LETTER -->
+<section class="page" id="page2" aria-label="My apology letter">
+  <div class="topbar">
+    <button class="home-btn" onclick="goTo(1)">⌂ Home</button>
+    <div class="progress">
+      <span class="done"></span><span class="done"></span><span></span><span></span><span></span>
     </div>
+  </div>
 
-    <div class="envelope">💌</div>
-
-    <h2>I'm sorry, <em>babe.</em></h2>
+  <div class="card letter-card">
+    <div class="center">
+      <div style="font-size:42px">💌</div>
+      <div class="eyebrow">A letter from my heart</div>
+      <h2>I'm sorry, <em>babe.</em></h2>
+    </div>
 
     <p>Hey babe,</p>
 
-    <p>
-      First of all, I want to say that I am truly sorry for hurting you.
-      I know that my words or actions may have caused you pain, and the
-      thought of being the reason behind your sadness breaks my heart.
-      You mean so much more to me than I can ever explain, and the last
-      thing I would ever want is to make you feel unloved, unimportant,
-      or unappreciated.
-    </p>
+    <p>First of all, I want to say that I am truly sorry for hurting you. I know that my words or actions may have caused you pain, and the thought of being the reason behind your sadness breaks my heart. You mean so much more to me than I can ever explain, and the last thing I would ever want is to make you feel unloved, unimportant, or unappreciated.</p>
 
-    <p>
-      You are someone I prayed for without even knowing it. You have
-      become such a beautiful part of my life, and I never want to take
-      your love, your trust, or your presence for granted. I know that
-      loving someone isn't just about saying beautiful words or making
-      promises; it's about showing up, understanding each other,
-      admitting our mistakes, and making an effort to become better
-      for one another.
-    </p>
+    <p>You are someone I prayed for without even knowing it. You have become such a beautiful part of my life, and I never want to take your love, your trust, or your presence for granted. I know that loving someone isn't just about saying beautiful words or making promises; it's about showing up, understanding each other, admitting our mistakes, and making an effort to become better for one another.</p>
 
-    <p>
-      I know I'm not perfect. I make mistakes, I sometimes fail to
-      express myself the right way, and there may be times when I don't
-      give you the love, patience, or understanding you deserve. But
-      please believe me when I say that my mistakes do not change how
-      deeply I love you. I am sorry for the moments when I made you
-      feel otherwise.
-    </p>
+    <p>I know I'm not perfect. I make mistakes, I sometimes fail to express myself the right way, and there may be times when I don't give you the love, patience, or understanding you deserve. But please believe me when I say that my mistakes do not change how deeply I love you. I am sorry for the moments when I made you feel otherwise.</p>
 
-    <p>
-      I'm not going to promise that we will never fight, disagree,
-      or hurt each other's feelings, because I know that we're only
-      human. But I promise that I want to learn from my mistakes.
-      I want to listen to you more, understand your feelings better,
-      communicate honestly, and never let my pride become more
-      important than your happiness or our relationship.
-    </p>
+    <p>I'm not going to promise that we will never fight, disagree, or hurt each other's feelings, because I know that we're only human. But I promise that I want to learn from my mistakes. I want to listen to you more, understand your feelings better, communicate honestly, and never let my pride become more important than your happiness or our relationship.</p>
 
-    <p>
-      You deserve love that makes you feel safe, respect that never
-      makes you question your worth, and honesty that allows you to
-      trust me. You deserve someone who makes an effort, not just
-      someone who says the right things. I want to be that person
-      for you. I want to show you through my actions that you matter
-      to me, that your feelings matter to me, and that our relationship
-      is something I am willing to work for.
-    </p>
+    <p>You deserve love that makes you feel safe, respect that never makes you question your worth, and honesty that allows you to trust me. You deserve someone who makes an effort, not just someone who says the right things. I want to be that person for you. I want to show you through my actions that you matter to me, that your feelings matter to me, and that our relationship is something I am willing to work for.</p>
 
-    <p>
-      I'm sorry for every tear I may have caused, every moment I made
-      you overthink, every time I failed to understand you, and every
-      time my actions didn't match the love I have for you. If I could
-      take away the pain I've caused you, I would. Since I can't
-      change what has already happened, I can only take responsibility
-      for it and do my best to make things right.
-    </p>
+    <p>I'm sorry for every tear I may have caused, every moment I made you overthink, every time I failed to understand you, and every time my actions didn't match the love I have for you. If I could take away the pain I've caused you, I would. Since I can't change what has already happened, I can only take responsibility for it and do my best to make things right.</p>
 
-    <p class="closing-quote">
-      "I can't change what happened,<br>
-      but I want to do better from here."
-    </p>
+    <p class="letter-quote">"I can't change what happened, but I want to learn, grow, and do better for us." ❤️</p>
 
-    <p>
-      I don't expect a single apology to fix everything overnight.
-      I understand that trust and healing can take time, and I am
-      willing to be patient. I don't want to pressure you into
-      forgiving me before you're ready. I just want you to know
-      that my apology comes from my heart, and I genuinely want
-      to do better.
-    </p>
+    <p>I don't expect a single apology to fix everything overnight. I understand that trust and healing can take time, and I am willing to be patient. I don't want to pressure you into forgiving me before you're ready. I just want you to know that my apology comes from my heart, and I genuinely want to do better.</p>
 
-    <p>
-      I want to laugh with you, share silly moments with you, make
-      beautiful memories with you, support your dreams, and be there
-      for you on the days when life feels heavy. I want to celebrate
-      your happiness and comfort you when you're sad. I want us to
-      grow together, learn together, and choose each other even when
-      things aren't easy.
-    </p>
+    <p>I want to laugh with you, share silly moments with you, make beautiful memories with you, support your dreams, and be there for you on the days when life feels heavy. I want to celebrate your happiness and comfort you when you're sad. I want us to grow together, learn together, and choose each other even when things aren't easy.</p>
 
-    <p>
-      Most importantly, I don't want my love for you to exist only
-      in my words. I want you to feel it in my actions, in my patience,
-      in my honesty, and in the way I treat you every single day.
-    </p>
+    <p>Most importantly, I don't want my love for you to exist only in my words. I want you to feel it in my actions, in my patience, in my honesty, and in the way I treat you every single day.</p>
 
-    <p>
-      I'm truly sorry, my love. I'm sorry for the times I fell short
-      of the love you deserve. You are precious to me, and I never
-      want you to doubt that. I love you with all my heart, and I
-      want to keep learning how to love you in the way that makes
-      you feel understood, respected, valued, and cherished.
-    </p>
+    <p>I'm truly sorry, bangaara. I'm sorry for the times I fell short of the love you deserve. You are precious to me, and I never want you to doubt that. I love you with all my heart, and I want to keep learning how to love you in the way that makes you feel understood, respected, valued, and cherished.</p>
 
-    <p>
-      I'm not asking for a perfect relationship. I'm asking for the
-      chance to build a stronger, healthier, and happier one with
-      you, with more understanding, more honesty, more patience,
-      and more love.
-    </p>
+    <p>I'm not asking for a perfect relationship. I'm asking for the chance to build a stronger, healthier, and happier one with you, with more understanding, more honesty, more patience, and more love.</p>
 
-    <p>
-      I love you more than these words can explain. I am sorry for
-      hurting you, and I hope that, with time and genuine effort,
-      I can show you just how much you mean to me.
-    </p>
+    <p>I love you more than these words can explain. I am sorry for hurting you, and I hope that, with time and genuine effort, I can show you just how much you mean to me.</p>
 
-    <p>
-      I'm sorry, my love. I love you, and I don't want to stop
-      choosing you. ❤️
-    </p>
+    <p class="letter-quote">I'm sorry, my love. I love you, and I don't want to stop choosing you. ❤️</p>
 
-    <div class="signature">Always your girl ♡</div>
+    <p>With all my love,</p>
+    <div class="signature">Your girl, your bangaara ♡</div>
 
-  </article>
-</section>
-
-
-<!-- A PROMISE TO GROW -->
-<section class="promises-section">
-  <div class="eyebrow">A little promise from me</div>
-
-  <h2>A softer kind of love.</h2>
-
-  <p class="description">
-    I can't promise to be perfect. But I want to keep learning,
-    growing, and showing you that this love deserves care
-    through both the easy days and the difficult ones.
-  </p>
-
-  <div class="promise-list">
-
-    <div class="promise">
-      <span class="promise-icon">🌷</span>
-      <div>
-        <strong>I'll try to pause before reacting.</strong><br>
-        I'll work on giving myself a moment to breathe,
-        understand my feelings, and choose my words carefully.
-      </div>
+    <div class="btn-row">
+      <button class="primary" onclick="goTo(3)">Next, my love →</button>
     </div>
-
-    <div class="promise">
-      <span class="promise-icon">🫶🏻</span>
-      <div>
-        <strong>I'll listen with an open heart.</strong><br>
-        I'll try to understand your feelings instead of
-        immediately becoming defensive.
-      </div>
-    </div>
-
-    <div class="promise">
-      <span class="promise-icon">🤍</span>
-      <div>
-        <strong>Your feelings matter to me.</strong><br>
-        I want both of us to feel heard, respected,
-        and safe to be honest with each other.
-      </div>
-    </div>
-
-    <div class="promise">
-      <span class="promise-icon">🌱</span>
-      <div>
-        <strong>I'll show you through my actions.</strong><br>
-        I want my effort, patience, honesty, and accountability
-        to mean more than promises alone.
-      </div>
-    </div>
-
   </div>
 </section>
 
 
-<!-- THE FRESH START QUESTION -->
-<section class="question-section">
-
-  <div class="big-heart">🤍</div>
-
-  <div class="eyebrow">One little question, babe</div>
-
-  <h2>Can we start <em>fresh?</em></h2>
-
-  <p class="description">
-    Not by pretending that nothing happened.
-    Not by forgetting the things we need to learn.
-    But by giving ourselves a chance to understand
-    each other better, to be softer with each other,
-    and to build something even healthier than before.
-
-    <br><br>
-
-    We don't have to fix everything in one day.
-    I just hope we can take it one step at a time,
-    when we're both ready. ❤️
-  </p>
-
-  <div class="button-row">
-    <button class="primary" onclick="showAnswer('yes')">
-      Let's try, together 🥹❤️
-    </button>
-
-    <button class="secondary" onclick="showAnswer('time')">
-      I need a little time 🤍
-    </button>
+<!-- PAGE 3: WHY I AM SORRY -->
+<section class="page" id="page3" aria-label="Why I am sorry">
+  <div class="topbar">
+    <button class="home-btn" onclick="goTo(1)">⌂ Home</button>
+    <div class="progress">
+      <span class="done"></span><span class="done"></span><span class="done"></span><span></span><span></span>
+    </div>
   </div>
 
-  <div class="response" id="response" aria-live="polite"></div>
+  <div class="eyebrow">Things I need to own</div>
+  <h2 class="center">Why I am <em>Sorry</em> ♡</h2>
+  <p class="subtitle">There are so many reasons, and I want to be honest about them.</p>
 
+  <div class="reasons">
+    <div class="reason"><span class="emoji">💔</span><span class="reason-text">I hurt you.</span><span class="tiny-heart">♥</span></div>
+    <div class="reason"><span class="emoji">🥺</span><span class="reason-text">I disappointed you.</span><span class="tiny-heart">♥</span></div>
+    <div class="reason"><span class="emoji">🌷</span><span class="reason-text">I couldn't take care of you.</span><span class="tiny-heart">♥</span></div>
+    <div class="reason"><span class="emoji">💬</span><span class="reason-text">I didn't understand you.</span><span class="tiny-heart">♥</span></div>
+    <div class="reason"><span class="emoji">🤍</span><span class="reason-text">I couldn't give what you wanted.</span><span class="tiny-heart">♥</span></div>
+    <div class="reason"><span class="emoji">😔</span><span class="reason-text">I couldn't keep you happy.</span><span class="tiny-heart">♥</span></div>
+    <div class="reason"><span class="emoji">⭐</span><span class="reason-text">I couldn't be the good partner I want to be.</span><span class="tiny-heart">♥</span></div>
+  </div>
+
+  <p class="subtitle">
+    I'm not saying these things to make you feel bad for me.
+    I'm saying them because I want to take responsibility
+    and learn to do better. ❤️
+  </p>
+
+  <button class="primary" style="margin-top:15px" onclick="startGame()">
+    There's one little game for you → 💗
+  </button>
 </section>
 
 
-<footer>
-  Made with all my heart, just for my Bangaara. ♡
-  <br>
-  A little apology, a lot of love, and hope for us. ❤️
-</footer>
+<!-- PAGE 4: CATCH A LITTLE LOVE -->
+<section class="page" id="page4" aria-label="Catch a Little Love game">
+  <div class="topbar">
+    <button class="home-btn" onclick="goTo(1)">⌂ Home</button>
+    <div class="progress">
+      <span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span></span>
+    </div>
+  </div>
+
+  <div class="game-shell">
+    <div class="eyebrow">A tiny game, just for you</div>
+    <h2>Catch a Little <em>Love</em> ♡</h2>
+    <p class="game-hint">Tap the hearts before they fall! Catch as many as you can in 30 seconds. 💕</p>
+
+    <div class="game-stats">
+      <div class="stat">
+        <small>💗 Hearts Caught</small>
+        <strong id="score">0</strong>
+      </div>
+      <div class="stat">
+        <small>◷ Time Left</small>
+        <strong><span id="time">30</span>s</strong>
+      </div>
+    </div>
+
+    <div class="game-area" id="gameArea">
+      <div class="game-overlay" id="gameIntro">
+        <div style="font-size:55px">💞</div>
+        <h3>Ready, bangaara?</h3>
+        <p>Every little heart is a reminder of all the love I have for you. Catch as many as you can!</p>
+        <button class="primary" onclick="beginRound()">Let's catch love! 💗</button>
+      </div>
+
+      <div class="game-overlay" id="gameResult" hidden>
+        <div class="result-bunny">🐰</div>
+        <h3>Nice catch!</h3>
+        <div class="result-note">
+          You caught <span class="result-number" id="finalScore">0</span> hearts —
+          <br>just like every time you catch my heart. ❤️
+        </div>
+        <p>You make my little world feel sweeter, bangaara.</p>
+        <button class="primary" onclick="goTo(5)">One last little thing →</button>
+        <button class="secondary" style="margin-top:10px" onclick="replayGame()">Play again ↻</button>
+      </div>
+    </div>
+
+    <div class="btn-row" id="gameControls">
+      <button class="secondary" onclick="goTo(3)">← Back</button>
+      <button class="secondary" onclick="replayGame()">Restart game ↻</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- PAGE 5: FINAL MESSAGE -->
+<section class="page" id="page5" aria-label="I'm sorry and I love you">
+  <div class="topbar">
+    <button class="home-btn" onclick="goTo(1)">⌂ Home</button>
+    <div class="progress">
+      <span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span>
+    </div>
+  </div>
+
+  <div class="final-card">
+    <div class="big-heart">💗</div>
+    <div class="eyebrow">And this is what I want you to know</div>
+
+    <h2>I'm Sorry,<br><em>and I Love You.</em></h2>
+
+    <div class="promise">
+      I cannot promise I will never stumble.
+      I can promise I will keep choosing you —
+      with more care, more honesty, and a softer
+      heart than I had before.
+
+      <br><br>
+
+      <strong style="color:var(--darkrose);font-family:'Playfair Display',serif;font-size:24px">
+        I love you, Always. ♡
+      </strong>
+    </div>
+
+    <div class="penguin" aria-label="A cute penguin holding a heart">🐧💗</div>
+
+    <p class="subtitle">
+      No pressure, no expectations.
+      Just a genuine apology, all my love,
+      and a little hope for us. 🌷
+    </p>
+
+    <div class="btn-row">
+      <button class="secondary" onclick="goTo(1)">Read it again ♡</button>
+    </div>
+  </div>
+
+  <div class="flowers">🌸 🌷 🌼 🌸 🌷 🌼 🌸</div>
+</section>
 
 
 <script>
-function goToLetter() {
-  document.getElementById('letter').scrollIntoView({
-    behavior: 'smooth'
+const pages = Array.from(document.querySelectorAll('.page'));
+let currentPage = 1;
+
+function goTo(number) {
+  stopRound();
+
+  currentPage = number;
+
+  pages.forEach((page, index) => {
+    page.classList.toggle('active', index === number - 1);
   });
-}
 
-function showAnswer(choice) {
-  const box = document.getElementById('response');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  if (choice === 'yes') {
-    box.innerHTML = `
-      <div style="font-size:34px;">🥹❤️</div>
-      <strong>One little fresh start, for us.</strong>
-      <br><br>
-      Thank you for being willing to try.
-      We don't need to have all the answers today.
-      Let's take it slowly, listen to each other,
-      and make our way forward with more love,
-      patience, and understanding.
-      <br><br>
-      One step at a time, babe. ♡
-    `;
-
-    createHearts();
-
-  } else {
-    box.innerHTML = `
-      <div style="font-size:34px;">🫂🤍</div>
-      <strong>It's okay, babe. Take your time.</strong>
-      <br><br>
-      I don't want you to feel pressured to answer
-      before you're ready. I meant my apology, and
-      I'm willing to listen whenever you feel ready
-      to talk. Your feelings matter to me, too. ♡
-    `;
-  }
-
-  box.style.display = 'block';
-
-  box.scrollIntoView({
-    behavior: 'smooth',
-    block: 'center'
-  });
-}
-
-function createHearts() {
-  const symbols = ['♡', '🤍', '💕', '♥', '✧'];
-
-  for (let i = 0; i < 24; i++) {
-    setTimeout(() => {
-      const heart = document.createElement('div');
-
-      heart.className = 'floating-heart';
-      heart.textContent =
-        symbols[Math.floor(Math.random() * symbols.length)];
-
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = (16 + Math.random() * 20) + 'px';
-      heart.style.animationDuration = (3 + Math.random() * 3) + 's';
-
-      document.body.appendChild(heart);
-
-      setTimeout(() => heart.remove(), 6500);
-    }, i * 100);
+  if (number === 3) {
+    const reasons = document.querySelector('.reasons');
+    reasons.querySelectorAll('.reason').forEach(reason => {
+      reason.style.animation = 'none';
+      void reason.offsetWidth;
+      reason.style.animation = '';
+    });
   }
 }
+
+// Game state
+let score = 0;
+let seconds = 30;
+let spawnInterval = null;
+let clockInterval = null;
+let running = false;
+let roundId = 0;
+
+const area = document.getElementById('gameArea');
+const scoreEl = document.getElementById('score');
+const timeEl = document.getElementById('time');
+const intro = document.getElementById('gameIntro');
+const result = document.getElementById('gameResult');
+const controls = document.getElementById('gameControls');
+
+function startGame() {
+  goTo(4);
+  resetBoard();
+  intro.hidden = false;
+  result.hidden = true;
+}
+
+function resetBoard() {
+  stopRound();
+  area.querySelectorAll('.falling-heart').forEach(heart => heart.remove());
+  score = 0;
+  seconds = 30;
+  scoreEl.textContent = score;
+  timeEl.textContent = seconds;
+}
+
+function beginRound() {
+  if (running) return;
+
+  resetBoard();
+  running = true;
+  const thisRound = roundId;
+
+  intro.hidden = true;
+  result.hidden = true;
+  controls.style.visibility = 'hidden';
+
+  spawnHeart();
+
+  spawnInterval = setInterval(() => {
+    if (running && thisRound === roundId) spawnHeart();
+  }, 650);
+
+  clockInterval = setInterval(() => {
+    if (!running || thisRound !== roundId) return;
+
+    seconds--;
+    timeEl.textContent = seconds;
+
+    if (seconds <= 0) finishRound();
+  }, 1000);
+}
+
+function spawnHeart() {
+  if (!running) return;
+
+  const heart = document.createElement('button');
+  heart.type = 'button';
+  heart.className = 'falling-heart';
+  heart.textContent = ['💗', '💖', '💕', '❤️', '💘'][Math.floor(Math.random() * 5)];
+  heart.setAttribute('aria-label', 'Catch this heart');
+
+  const maxLeft = Math.max(0, area.clientWidth - 50);
+  heart.style.left = Math.random() * maxLeft + 'px';
+  heart.style.setProperty('--fall-time', (2.4 + Math.random() * 1.4) + 's');
+
+  heart.addEventListener('click', () => {
+    if (!running || heart.classList.contains('caught')) return;
+
+    score++;
+    scoreEl.textContent = score;
+    heart.classList.add('caught');
+    heart.disabled = true;
+
+    setTimeout(() => heart.remove(), 250);
+  });
+
+  heart.addEventListener('animationend', () => heart.remove());
+
+  area.appendChild(heart);
+}
+
+function stopRound() {
+  running = false;
+  roundId++;
+
+  clearInterval(spawnInterval);
+  clearInterval(clockInterval);
+
+  spawnInterval = null;
+  clockInterval = null;
+}
+
+function finishRound() {
+  stopRound();
+
+  area.querySelectorAll('.falling-heart').forEach(heart => heart.remove());
+
+  timeEl.textContent = '0';
+  document.getElementById('finalScore').textContent = score;
+
+  result.hidden = false;
+  controls.style.visibility = 'visible';
+}
+
+function replayGame() {
+  resetBoard();
+  intro.hidden = false;
+  result.hidden = true;
+  controls.style.visibility = 'visible';
+}
+
+// Clean up the game if the user navigates away.
+window.addEventListener('pagehide', stopRound);
 </script>
 
 </body>
 </html>
-
